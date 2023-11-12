@@ -5,7 +5,6 @@ import json
 from datetime import datetime
 from flask import Flask, render_template, request
 from flask_cors import CORS
-import mimetypes
 import tempfile
 from dotenv import load_dotenv
 
@@ -31,7 +30,7 @@ def lipsync():
     #open('dictator_orig.mp4', 'rb')
     files = [
         ("input_face", temp_file),
-        ("input_audio", open('10 seconds Most Funny Video Ever.wav', 'rb'))
+        ("input_audio", open('GOBLIN.MP3', 'rb'))
     ]
     payload = {}
 
@@ -43,7 +42,6 @@ def lipsync():
         files=files,
         data={"json": json.dumps(payload)},
     )
-
     assert response.ok, response.content
     temp_file.close()
     result = response.json()

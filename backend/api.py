@@ -1,17 +1,17 @@
 import os
 import requests
 import os.path
-import cv2
 import json
-import imageio
 from datetime import datetime
-import glob
 from flask import Flask, render_template, request
-from io import BytesIO
+from flask_cors import CORS
 import mimetypes
 import tempfile
+from dotenv import load_dotenv
 
 app = Flask(__name__)
+
+CORS(app, origins=["http://localhost:3000"])
 
 @app.route('/')
 def home():
@@ -26,7 +26,7 @@ def lipsync():
     if file.filename == '':
         return 'No selected file', 400
 
-    temp_file = tempfile.NamedTemporaryFile(suffix='.mp4', delete=False)
+    temp_file = tempfile.NamedTemporaryFile(suffix='.' + file.filename.split('.')[-1], delete=False)
     file.save(temp_file.name)
     #open('dictator_orig.mp4', 'rb')
     files = [
@@ -48,10 +48,7 @@ def lipsync():
     temp_file.close()
     result = response.json()
     print(response.status_code, result)
-    output = result.get("output")
-    if output:
-        output = output.get("output_video")
-    return {'url':output }
+    return result
 
 if __name__ == '__main__':
     app.run(debug=True)

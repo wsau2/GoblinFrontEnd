@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "react-dom": "^18.2.0",
+    "react-webcam": "^7.2.0"
+  }
+}

@@ -1,4 +1,4 @@
-backend\venv
+backend\venv\*
 
-frontend\node_modules
+frontend\node_modules\*
 frontend\package-lock.json
